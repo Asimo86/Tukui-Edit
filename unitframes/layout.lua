@@ -33,10 +33,6 @@ local function Shared(self, unit)
 	self.menu = TukuiDB.SpawnMenu
 	self:SetAttribute('type2', 'menu')
 
-	-- backdrop for every units
-	-- self:SetBackdrop(backdrop)
-	-- self:SetBackdropColor(0, 0, 0)
-
 	-- this is the glow border
 	self.FrameBackdrop = CreateFrame("Frame", nil, self)
 	-- self.FrameBackdrop:SetPoint("TOPLEFT", self, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
