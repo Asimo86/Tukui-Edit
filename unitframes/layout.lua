@@ -269,22 +269,10 @@ local function Shared(self, unit)
 				Experience:SetPoint("BOTTOMRIGHT", panel, TukuiDB.Scale(-2), TukuiDB.Scale(2))
 				Experience:SetFrameLevel(10)
 				Experience:SetAlpha(1)				
-				--Experience:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
-				--Experience:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
 				Experience.Tooltip = true						
 				Experience.Rested = CreateFrame('StatusBar', nil, self)
 				Experience.Rested:SetParent(Experience)
 				Experience.Rested:SetAllPoints(Experience)
-				-- Resting = Experience:CreateTexture(nil, "OVERLAY")
-				-- Resting:SetHeight(28)
-				-- Resting:SetWidth(28)
-				-- if TukuiDB.myclass == "SHAMAN" or TukuiDB.myclass == "DEATHKNIGHT" then
-					-- Resting:SetPoint("LEFT", -18, 76)
-				-- else
-					-- Resting:SetPoint("LEFT", -18, 68)
-				-- end
-				-- Resting:SetTexture([=[Interface\CharacterFrame\UI-StateIcon]=])
-				-- Resting:SetTexCoord(0, 0.5, 0, 0.421875)
 				self.Experience = Experience
 			end
 			
@@ -300,10 +288,6 @@ local function Shared(self, unit)
 				Reputation:SetPoint("BOTTOMRIGHT", panel, TukuiDB.Scale(-2), TukuiDB.Scale(2))
 				Reputation:SetFrameLevel(10)
 				Reputation:SetAlpha(1)
-
-				-- Reputation:HookScript("OnEnter", function(self) self:SetAlpha(1) end)
-				-- Reputation:HookScript("OnLeave", function(self) self:SetAlpha(0) end)
-
 				Reputation.PostUpdate = TukuiDB.UpdateReputationColor
 				Reputation.Tooltip = true
 				self.Reputation = Reputation
