@@ -33,18 +33,6 @@ local function Shared(self, unit)
 	self.menu = TukuiDB.SpawnMenu
 	self:SetAttribute('type2', 'menu')
 
-	-- this is the glow border
-	self.FrameBackdrop = CreateFrame("Frame", nil, self)
-	-- self.FrameBackdrop:SetPoint("TOPLEFT", self, "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
-	-- self.FrameBackdrop:SetFrameStrata("BACKGROUND")
-	-- self.FrameBackdrop:SetBackdrop {
-	  -- edgeFile = glowTex, edgeSize = 3,
-	  -- insets = {left = 0, right = 0, top = 0, bottom = 0}
-	-- }
-	-- self.FrameBackdrop:SetBackdropColor(0, 0, 0, 0)
-	-- self.FrameBackdrop:SetBackdropBorderColor(0, 0, 0)
-	-- self.FrameBackdrop:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
-
 	------------------------------------------------------------------------
 	--	Player and Target units layout (mostly mirror'd)
 	------------------------------------------------------------------------
@@ -359,13 +347,6 @@ local function Shared(self, unit)
 					Runes[i]:GetStatusBarTexture():SetHorizTile(false)
 				end
 
-				Runes.FrameBackdrop = CreateFrame("Frame", nil, Runes)
-				Runes.FrameBackdrop:SetPoint("TOPLEFT", Runes, "TOPLEFT", TukuiDB.Scale(-2), TukuiDB.Scale(2))
-				Runes.FrameBackdrop:SetPoint("BOTTOMRIGHT", Runes, "BOTTOMRIGHT", TukuiDB.Scale(2), TukuiDB.Scale(-2))
-				Runes.FrameBackdrop:SetFrameStrata("BACKGROUND")
-				Runes.FrameBackdrop:SetBackdrop {edgeFile = glowTex, edgeSize = 4, insets = {left = 3, right = 3, top = 3, bottom = 3}}
-				Runes.FrameBackdrop:SetBackdropColor(0, 0, 0, 0)
-				Runes.FrameBackdrop:SetBackdropBorderColor(0, 0, 0, .7)
 				self.Runes = Runes
 			end
 			
@@ -396,16 +377,6 @@ local function Shared(self, unit)
 					TotemBar[i].bg:SetTexture(normTex)
 					TotemBar[i].bg.multiplier = 0.3
 									
-					TotemBar[i].FrameBackdrop = CreateFrame("Frame", nil, TotemBar[i])
-					TotemBar[i].FrameBackdrop:SetPoint("TOPLEFT", TotemBar[i], "TOPLEFT", TukuiDB.Scale(-3), TukuiDB.Scale(3))
-					TotemBar[i].FrameBackdrop:SetPoint("BOTTOMRIGHT", TotemBar[i], "BOTTOMRIGHT", TukuiDB.Scale(3), TukuiDB.Scale(-3))
-					TotemBar[i].FrameBackdrop:SetFrameStrata("BACKGROUND")
-					TotemBar[i].FrameBackdrop:SetBackdrop {
-						edgeFile = glowTex, edgeSize = 4,
-						insets = {left = 3, right = 3, top = 3, bottom = 3}
-					}
-					TotemBar[i].FrameBackdrop:SetBackdropColor(0, 0, 0, 0)
-					TotemBar[i].FrameBackdrop:SetBackdropBorderColor(0, 0, 0, .7)
 				end
 				self.TotemBar = TotemBar
 			end
@@ -847,8 +818,6 @@ local function Shared(self, unit)
 	------------------------------------------------------------------------
 	
 	if (unit == "focus") then
-		-- no glow border on focus please
-		self.FrameBackdrop:SetAlpha(0)
 		
 		-- create health bar
 		local health = CreateFrame('StatusBar', nil, self)
