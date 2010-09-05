@@ -70,15 +70,14 @@ local function Shared(self, unit)
 		healthborder:SetFrameStrata("MEDIUM")
 		healthborder:SetFrameLevel(2)
 		
-
 				
 		-- health bar background
 		local healthBG = health:CreateTexture(nil, 'BORDER')
 		healthBG:SetAllPoints()
 		healthBG:SetTexture(.1, .1, .1)
 	
-		health.value = TukuiDB.SetFontString(health, font1, 16, "OUTLINE")
-		health.value:SetPoint("RIGHT", health, "RIGHT", TukuiDB.Scale(-4), TukuiDB.Scale(1))
+		health.value = TukuiDB.SetFontString(health, font1, 12, "OUTLINE")
+		health.value:SetPoint("RIGHT", health, "RIGHT", TukuiDB.Scale(-4), TukuiDB.Scale(4))
 		health.PostUpdate = TukuiDB.PostUpdateHealth
 				
 		self.Health = health
@@ -105,23 +104,25 @@ local function Shared(self, unit)
 
 		-- power
 		local power = CreateFrame('StatusBar', nil, self)
-		power:SetHeight(TukuiDB.Scale(26))
+		power:SetHeight(TukuiDB.Scale(7))
+	
 		if (unit == "target") then
-		power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 5, TukuiDB.Scale(20))
-		power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 5, TukuiDB.Scale(20))
+		power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 10, TukuiDB.Scale(2))
+		power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", -100, TukuiDB.Scale(2))
 		else
-		power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", -5, TukuiDB.Scale(20))
-		power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", -5, TukuiDB.Scale(20))
+		power:SetPoint("TOPLEFT", health, "BOTTOMLEFT", 100, TukuiDB.Scale(2))
+		power:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", -10, TukuiDB.Scale(2))
 		end
 		power:SetStatusBarTexture(normTex)
 		
-		power:SetFrameStrata("LOW")
-		power:SetFrameLevel(1)
+		power:SetFrameStrata("MEDIUM")
+		power:SetFrameLevel(4)
+		
 		
 		local powerborder = CreateFrame("Frame", powerborder, power)
-		TukuiDB.CreatePanel(powerborder, 254, TukuiDB.Scale(30), "CENTER", power, "CENTER", 0, 0)
-		powerborder:SetFrameStrata("LOW")
-		powerborder:SetFrameLevel(1)
+		TukuiDB.CreatePanel(powerborder, 144, TukuiDB.Scale(11), "CENTER", power, "CENTER", 0, 0)
+		powerborder:SetFrameStrata("MEDIUM")
+		powerborder:SetFrameLevel(4)
 		
 		local powerBG = power:CreateTexture(nil, 'BORDER')
 		powerBG:SetAllPoints(power)
@@ -468,15 +469,14 @@ local function Shared(self, unit)
 		if (db.unitcastbar == true) then
 			-- castbar of player and target
 			
-
-			 
 			local castbar = CreateFrame("StatusBar", self:GetName().."_Castbar", self)
 			castbar:SetStatusBarTexture(normTex)			
 			castbar.bg = castbar:CreateTexture(nil, "BORDER")
 			castbar.bg:SetAllPoints(castbar)
 			castbar.bg:SetTexture(normTex)
 			castbar.bg:SetVertexColor(0.15, 0.15, 0.15)
-			castbar:SetFrameLevel(1)
+			castbar:SetFrameStrata("MEDIUM")
+			castbar:SetFrameLevel(5)
 			castbar:SetPoint("TOPLEFT", power, 0, 0)
 			castbar:SetPoint("BOTTOMRIGHT", power, 0, 0)
 			
@@ -489,13 +489,17 @@ local function Shared(self, unit)
 			castbar:RegisterEvent('UNIT_SPELLCAST_INTERRUPTABLE', TukuiDB.SpellCastInterruptable)
 			castbar:RegisterEvent('UNIT_SPELLCAST_NOT_INTERRUPTABLE', TukuiDB.SpellCastInterruptable)
 
-			castbar.time = TukuiDB.SetFontString(castbar, font1, 12)
-			castbar.time:SetPoint("RIGHT", power, "RIGHT", TukuiDB.Scale(-4), TukuiDB.Scale(-25))
-			castbar.time:SetTextColor(0.84, 0.75, 0.65)
-			castbar.time:SetJustifyH("RIGHT")
+			-- castbar.time = TukuiDB.SetFontString(castbar, font1, 12)
+			-- castbar.time:SetPoint("RIGHT", power, "RIGHT", TukuiDB.Scale(-4), TukuiDB.Scale(-25))
+			-- castbar.time:SetTextColor(0.84, 0.75, 0.65)
+			-- castbar.time:SetJustifyH("RIGHT")
 
 			castbar.Text = TukuiDB.SetFontString(castbar, font1, 12)
-			castbar.Text:SetPoint("LEFT", power, "LEFT", 4, -25)
+			if (unit == "target") then
+				castbar.Text:SetPoint("LEFT", power, "LEFT", 0, -15)
+			else
+				castbar.Text:SetPoint("RIGHT", power, "RIGHT", 0, -15)
+			end
 			castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 			
 			if db.cbicons == true then
@@ -511,15 +515,15 @@ local function Shared(self, unit)
 			
 				if unit == "player" then
 					if db.charportrait == true then
-						castbar.button:SetPoint("LEFT", -82.5, 26.5)
+						castbar.button:SetPoint("RIGHT", self.Health, "LEFT", -10, 0)
 					else
-						castbar.button:SetPoint("LEFT", -46.5, 26.5)
+						castbar.button:SetPoint("RIGHT", self.Health, "LEFT", -10, 0)
 					end
 				elseif unit == "target" then
 					if db.charportrait == true then
-						castbar.button:SetPoint("RIGHT", 82.5, 26.5)
+						castbar.button:SetPoint("LEFT", self.Health, "RIGHT", 10, 0)
 					else
-						castbar.button:SetPoint("RIGHT", 46.5, 26.5)
+						castbar.button:SetPoint("LEFT", self.Health, "RIGHT", 10, 0)
 					end					
 				end	
 			end
@@ -556,7 +560,11 @@ local function Shared(self, unit)
 			else
 				CombatFeedbackText = TukuiDB.SetFontString(health, font1, 14, "OUTLINE")
 			end
-			CombatFeedbackText:SetPoint("CENTER", 0, 1)
+			if (unit == "target") then
+				CombatFeedbackText:SetPoint("CENTER", 0, TukuiDB.Scale(4))
+			else
+				CombatFeedbackText:SetPoint("LEFT", 10, 1)
+			end
 			CombatFeedbackText.colors = {
 				DAMAGE = {0.69, 0.31, 0.31},
 				CRUSHING = {0.69, 0.31, 0.31},
